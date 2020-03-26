@@ -44,28 +44,25 @@ public class UserDAOImpl implements UserDAO
 
     @SuppressWarnings("unchecked")
     @Override
+    @Transactional
     public List<User> getAll()
     {
         Session session = this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<User> personList = session.createQuery("from User").list();
-        return personList;
+        return session.createQuery("from User").list();
     }
 
+    @Transactional
     public void deleteUser(User user)
     {
         Session session=this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
         session.delete(user);
-        tx.commit();
     }
 
+    @Transactional
     public void updateUser(User user)
     {
         Session session=this.sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
         session.update(user);
-        tx.commit();
     }
 
     @Transactional
